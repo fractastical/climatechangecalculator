@@ -1,4 +1,5 @@
-[
+
+let temp_data = [
     {
         "year": 1850,
         "month": 1,

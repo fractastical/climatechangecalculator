@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Anomaly Over Time</title>
+    <script src="data/berkley_earth_Land_and_Ocean_complete.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div style="width:75%;">
+        <canvas id="temperatureChart"></canvas>
+    </div>
+
+    <script>
+        // Assuming the JSON data is loaded from a 'data.json' file in the same directory
+        // or you can insert the JSON directly into a JavaScript variable here.
+                // We need to sort the data because Chart.js expects data points to be sorted by x value
+                temp_data.sort((a, b) => (a.year - b.year) || (a.month - b.month));
+
+                // Create arrays for the labels and the data
+                const labels = temp_data.map(item => `${item.year}-${item.month}`);
+                const dataset = temp_data.map(item => item.anomaly);
+
+                // Get the context of the canvas element we want to select
+                var ctx = document.getElementById('temperatureChart').getContext('2d');
+                
+                var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'line',
+
+                    // The data for our dataset
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Global Temperature Anomaly (°C)',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: dataset,
+                            fill: false,
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: false
+                            }
+                        }
+                    }
+                });
+    </script>
+
+</body>
+</html>
