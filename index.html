@@ -68,8 +68,8 @@
     // Update the data every second (1000 milliseconds)
     setInterval(function() {
         // Simulating the increase - In reality, you would fetch real data and update these values
-        temperatureIncrease += Math.random() * 0.01; // Simulating random small increase
-        seaLevelRise += Math.random() * 0.01; // Simulating random small increase
+        temperatureIncrease += Math.random() * 0.00001; // Simulating random small increase
+        seaLevelRise += Math.random() * 0.00001; // Simulating random small increase
 
         // Update the web page with new values
         $('#temperature').text(formatNumber(temperatureIncrease));
