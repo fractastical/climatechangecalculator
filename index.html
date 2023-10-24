@@ -37,6 +37,35 @@
         padding: 20px;
         display: inline-block;
     }
+    .columns {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap; /* Allows the columns to wrap on smaller screens */
+        }
+
+    .column {
+        flex: 1;
+        min-width: 200px; /* Adjust as needed */
+        box-sizing: border-box;
+        margin: 0 10px;
+    }
+
+    /* Style for the headings within each column */
+    .column h2 {
+        color: #ff4081;
+        text-transform: uppercase;
+    }
+
+    /* Style for the data within each column */
+    .data {
+        background-color: #000;
+        color: #00e6e6; /* Neon cyan */
+        font-size: 2em;
+        border: solid 3px #00e6e6; /* Neon cyan */
+        padding: 20px;
+        text-align: center;
+    }
+
 </style>
 <!-- Adding the Orbitron font from Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
@@ -45,14 +74,47 @@
 
 <h1>Climate Change Calculator</h1>
 
-<div>
-    <h2>Global Temperature in Celsius:</h2>
-    <div id="temperature">17.180000000</div>
-</div>
+<div class="columns">
+    <!-- Now -->
+    <div class="column">
+        <h2>Now</h2>
+        <div>
+            <h3>Global Temperature in Celsius:</h3>
+            <div id="temperature_now" class="data">17.180000000</div>
+        </div>
+        <div>
+            <h3>Global Sea Level Rise (millimeters since 1993):</h3>
+            <div id="sea_level_now" class="data">101.000000000</div>
+        </div>
+    </div>
 
-<div>
-    <h2>Global Sea Level Rise (millimeters since 1993):</h2>
-    <div id="sea_level">101.000000000</div>
+    <!-- In a Decade -->
+    <div class="column">
+        <h2>In a Decade</h2>
+        <!-- Similar structure as "Now", but with different IDs -->
+        <div>
+            <h3>Global Temperature in Celsius:</h3>
+            <div id="temperature_decade" class="data">...</div>
+        </div>
+        <div>
+            <h3>Global Sea Level Rise (millimeters since 1993):</h3>
+            <div id="sea_level_decade" class="data">...</div>
+        </div>
+    </div>
+
+    <!-- In 50 Years -->
+    <div class="column">
+        <h2>In 50 Years</h2>
+        <!-- Similar structure as "Now", but with different IDs -->
+        <div>
+            <h3>Global Temperature in Celsius:</h3>
+            <div id="temperature_50_years" class="data">...</div>
+        </div>
+        <div>
+            <h3>Global Sea Level Rise (millimeters since 1993):</h3>
+            <div id="sea_level_50_years" class="data">...</div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -65,15 +127,54 @@
         return num.toFixed(places); // Rounds the number to 2 decimal places
     }
 
+    // Constants for the number of seconds in 10 and 50 years
+    const SECONDS_IN_10_YEARS = 10 * 365.25 * 24 * 60 * 60; // Includes leap years
+    const SECONDS_IN_50_YEARS = 50 * 365.25 * 24 * 60 * 60; // Includes leap years
+
+    // Rate of change per second
+    const RATE_OF_TEMPERATURE_INCREASE = 0.00000000161; // see temp-graph
+    const RATE_OF_SEA_LEVEL_RISE = 0.0000001187; // See sea-graph
+
+    // Starting values
+    let currentTemperature = 17.18; // Starting temperature
+    let currentSeaLevel = 101; // Starting sea level
+
+    // Calculate values in 10 and 50 years based on the starting values
+    let temperatureIn10Years = currentTemperature + (RATE_OF_TEMPERATURE_INCREASE * SECONDS_IN_10_YEARS);
+    let seaLevelIn10Years = currentSeaLevel + (RATE_OF_SEA_LEVEL_RISE * SECONDS_IN_10_YEARS);
+
+    let temperatureIn50Years = currentTemperature + (RATE_OF_TEMPERATURE_INCREASE * SECONDS_IN_50_YEARS);
+    let seaLevelIn50Years = currentSeaLevel + (RATE_OF_SEA_LEVEL_RISE * SECONDS_IN_50_YEARS);
+
+    // Function to update the HTML elements with new values
+    function updateFutureProjections() {
+        $('#temperature_decade').text(formatNumber(temperatureIn10Years));
+        $('#sea_level_decade').text(formatNumber(seaLevelIn10Years));
+
+        $('#temperature_50_years').text(formatNumber(temperatureIn50Years));
+        $('#sea_level_50_years').text(formatNumber(seaLevelIn50Years));
+    }
+
+    // Initial update of future projections
+    updateFutureProjections();
+
     // Update the data every second (1000 milliseconds)
     setInterval(function() {
-        // Simulating the increase - In reality, you would fetch real data and update these values
-        temperatureIncrease += 0.00000000161; // as calcuated in temp-graph.html
-        seaLevelRise += 0.0000001187; // in millimeters calculated in sea_level_chart.js   
+        temperatureIncrease  += RATE_OF_TEMPERATURE_INCREASE;
+        temperatureIn10Years += RATE_OF_TEMPERATURE_INCREASE;
+        temperatureIn50Years += RATE_OF_TEMPERATURE_INCREASE; 
+        seaLevelRise += RATE_OF_SEA_LEVEL_RISE;    
+        seaLevelIn10Years += RATE_OF_SEA_LEVEL_RISE;  
+        seaLevelIn50Years += RATE_OF_SEA_LEVEL_RISE;  
 
         // Update the web page with new values
-        $('#temperature').text(formatNumber(temperatureIncrease,11));
-        $('#sea_level').text(formatNumber(seaLevelRise));
+        $('#temperature_now').text(formatNumber(temperatureIncrease,10));
+        $('#sea_level_now').text(formatNumber(seaLevelRise), 8);
+        $('#temperature_decade').text(formatNumber(temperatureIn10Years,10));
+        $('#sea_level_decade').text(formatNumber(seaLevelIn10Years, 9));
+        $('#temperature_50_years').text(formatNumber(temperatureIn50Years,11));
+        $('#sea_level_50_years').text(formatNumber(seaLevelIn50Years, 9));
+
     }, 1000);
 </script>
 
