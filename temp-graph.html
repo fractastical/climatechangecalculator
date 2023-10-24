@@ -20,8 +20,9 @@
                 // We need to sort the data because Chart.js expects data points to be sorted by x value
                 temp_data.sort((a, b) => (a.year - b.year) || (a.month - b.month));
 
+                    
                 // Create arrays for the labels and the data
-                const labels = temp_data.map(item => `${item.year}-${item.month}`);
+                const labels = temp_data.map(item => `${item.year}`);
                 const dataset = temp_data.map(item => item.anomaly);
 
                 // Get the context of the canvas element we want to select
