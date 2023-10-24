@@ -51,25 +51,25 @@
 </div>
 
 <div>
-    <h2>Global Sea Level Rise (inches since 1880):</h2>
-    <div id="sea_level">0.00</div>
+    <h2>Global Sea Level Rise (millimeters since 1993):</h2>
+    <div id="sea_level">101</div>
 </div>
 
 <script>
     // Simulated data - you should replace this with real-time data from a reliable source
     let temperatureIncrease = 1.2; // Example starting point value since 1880
-    let seaLevelRise = 8.0; // Example starting point value since 1880
+    let seaLevelRise = 101; // source: https://climate.nasa.gov/vital-signs/sea-level/#:~:text=101%20(%C2%B1%204.0)%20mm
 
     // Function to format numbers
     function formatNumber(num) {
-        return num.toFixed(6); // Rounds the number to 2 decimal places
+        return num.toFixed(8); // Rounds the number to 2 decimal places
     }
 
     // Update the data every second (1000 milliseconds)
     setInterval(function() {
         // Simulating the increase - In reality, you would fetch real data and update these values
         temperatureIncrease += Math.random() * 0.00001; // Simulating random small increase
-        seaLevelRise += Math.random() * 0.00001; // Simulating random small increase
+        seaLevelRise += 0.0000001187; // in millimeters calculated in sea_level_chart.js   
 
         // Update the web page with new values
         $('#temperature').text(formatNumber(temperatureIncrease));

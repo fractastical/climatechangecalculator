@@ -109,5 +109,12 @@ if (recentData.length < 2) {
     // Calculate the average rate of change
     var averageRateOfChange = seaLevelChange / timeElapsed; // in mm per year
 
+
+    // Convert from mm per year to mm per second
+    var secondsInAYear = 365.25 * 24 * 60 * 60; // days * hours * minutes * seconds
+    var rateOfChangePerSecond = averageRateOfChange / secondsInAYear; // mm per second
+
     console.log("The average rate of sea level change over the last decade is " + averageRateOfChange.toFixed(2) + " mm per year.");
+    console.log("The average rate of sea level change over the last decade is " + rateOfChangePerSecond.toFixed(10) + " mm per second.");
+
 }
