@@ -1,4 +1,4 @@
-[
+let seaLevelData = [
     {
         "year": 1993.011526,
         "gmsl_variation": -38.61
