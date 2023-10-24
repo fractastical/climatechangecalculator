@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temperature Anomaly Over Time</title>
-    <script src="data/berkley_earth_Land_and_Ocean_complete.js"></script>
+    <script src="data/temperature/berkley_earth_Land_and_Ocean_complete.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -62,6 +62,22 @@
                         }
                     }
                 });
+
+                const currentYear = new Date().getFullYear();
+                const tenYearsAgo = currentYear - 10;
+                const lastDecadeData = adjustedDataset.filter(item => item.year >= tenYearsAgo);
+
+                // Get the temperature difference
+                const earliestTemp = lastDecadeData[0].estimatedTemperature;
+                const latestTemp = lastDecadeData[lastDecadeData.length - 1].estimatedTemperature;
+                const tempDifference = latestTemp - earliestTemp;
+
+                // Calculate rate of change in Celsius per second
+                const secondsInDecade = 10 * 365.25 * 24 * 60 * 60; // includes leap years
+                const rateOfChangePerSecond = tempDifference / secondsInDecade;
+
+                console.log("Rate of change in Celsius per second over the last decade: ", rateOfChangePerSecond);
+
     </script>
 
 </body>
