@@ -5,10 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Climate Change Counter</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+    body {
+        background-color: #000;
+        font-family: 'Orbitron', sans-serif; /* Orbitron is a futuristic font, you can choose any other font that fits a cyberpunk style */
+        color: #fff;
+        text-align: center;
+    }
+
+    h1 {
+        color: #ff4081; /* Neon pink */
+        text-transform: uppercase;
+        padding: 20px;
+        font-size: 3em;
+    }
+
+    h2 {
+        color: #00e6e6; /* Neon cyan */
+        text-transform: uppercase;
+    }
+
+    div {
+        margin: 20px;
+    }
+
+    #temperature, #sea_level {
+        background-color: #000;
+        color: #00e6e6; /* Neon cyan */
+        font-size: 2em;
+        border: solid 3px #00e6e6; /* Neon cyan */
+        padding: 20px;
+        display: inline-block;
+    }
+</style>
+<!-- Adding the Orbitron font from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h1>Climate Change Real-time Counter</h1>
+<h1>Climate Change Calculator</h1>
 
 <div>
     <h2>Global Temperature Increase (Celsius since 1880):</h2>
