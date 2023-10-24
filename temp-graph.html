@@ -20,7 +20,14 @@
                 // We need to sort the data because Chart.js expects data points to be sorted by x value
                 temp_data.sort((a, b) => (a.year - b.year) || (a.month - b.month));
 
-                    
+                const baselineTemperature = 14.104; // for air temperature above sea ice
+                // const baselineTemperature = 14.700; // for water temperature below sea ice
+
+                const adjustedDataset = temp_data.map(item => ({
+                    ...item,
+                    estimatedTemperature: item.anomaly + baselineTemperature,
+                }));
+
                 // Create arrays for the labels and the data
                 const labels = temp_data.map(item => `${item.year}`);
                 const dataset = temp_data.map(item => item.anomaly);
@@ -36,10 +43,10 @@
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Global Temperature Anomaly (°C)',
+                            label: 'Estimated Global Temperature (Berkley Method)(°C)',
                             backgroundColor: 'rgb(255, 99, 132)',
                             borderColor: 'rgb(255, 99, 132)',
-                            data: dataset,
+                            data: adjustedDataset.map(item => item.estimatedTemperature),
                             fill: false,
                         }]
                     },
