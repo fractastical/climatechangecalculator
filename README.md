@@ -20,6 +20,7 @@ It does so by the following method:
 Initial data sources chosen:
 
 Global Mean Sea Level (GMSL) variations computed at the NASA Goddard Space Flight Center 
+
 The Berkeley Earth Land/Ocean Temperature Record
 
 More information can be found in the data folder. 
